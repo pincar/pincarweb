@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>找人</title>
+    <link rel="stylesheet" href="style/weui.css"/>
+    <link rel="stylesheet" href="style/example.css"/>
+</head>
+<body ontouchstart>
+    <div class="container js_container"> </div>
+ <script type="text/html" id="tpl_publish">
+<div class="page" >
+    <div class="hd">
+        <h1 class="page_title">发布信息</h1>
+    </div>
+	<div class="weui_cells weui_cells_form">
+		<div class="weui_cell">			    
+			<div class="weui_cell_hd"><label class="weui_label">车型</label></div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <select class="weui_select" name="carBrand">
+					<option value="cb001">大众</option>
+					<option value="cb002">福特</option>
+					<option value="cb003">雪弗兰</option>
+					<option value="cb004">别克</option>
+				 </select>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <select class="weui_select" name="carModel">
+					<option value="vwlangyi">朗逸</option>
+					<option value="fordfocus">福克斯</option>
+					<option value="chevroletmalibu">迈锐宝</option>
+					<option value="buicklacrosse">君越</option>
+				 </select>
+			</div>
+		</div>
+		<div class="weui_cell">
+			<div class="weui_cell_hd">
+				<label class="weui_label">其他车型</label>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				<input class="weui_input" type="text" name="carBrand_other" placeholder="品牌"></input> 
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <input class="weui_input" type="text" name="carModel_other" placeholder="车型"></input>
+			</div>
+		</div>
+		<div class="weui_cell">
+			<div class="weui_cell_hd">
+				<label class="weui_label">颜色/车牌</label>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <select class="weui_select" name="carColor">
+					<option value="red">红色</option>
+					<option value="white">白色</option>
+					<option value="black">黑色</option>
+					<option value="blue">蓝色</option>	
+					<option value="gray">灰色</option>
+					<option value="yellow">紫色</option>
+					<option value="purple">紫色</option>									
+				 </select>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <input class="weui_input" type="text" name="verticalLicense" placeholder="你的车牌"></input>
+			</div>
+		</div>
+		<div class="weui_cell">
+			<div class="weui_cell_hd">
+				<label class="weui_label">电话</label>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <input class="weui_input" type="text" name="mobileNo" pattern="1[0-9]{10}" placeholder="你的电话"></input>
+			</div>
+		</div>
+		<div class="weui_cell weui_cell_select weui_select_after">
+			<div class="weui_cell_hd">
+				<label class="weui_label">空位数</label>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <select class="weui_select" name="remainderSeatNum">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+				 </select>
+			</div>
+		</div>			
+		<div class="weui_cell weui_cell_select weui_select_after">
+			<div class="weui_cell_hd">
+				<label class="weui_label">出发地</label>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <select class="weui_select" name="startPoint">
+					<option value="1">泥城</option>
+					<option value="2">丽都</option>
+					<option value="3">城邦</option>
+					<option value="3">东港</option>
+					<option value="1">陆家嘴</option>
+					<option value="2">龙阳路</option>
+					<option value="3">张江高科</option>
+					<option value="3">金科路</option>
+					<option value="3">广兰路</option>
+					<option value="3">集电港</option>
+				 </select>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				<input class="weui_input" type="text" name="startPoint_other" placeholder="其他地点"></input> 
+			</div>
+		</div>			
+		<div class="weui_cell weui_cell_select weui_select_after">			
+			<div class="weui_cell_hd">
+				<label class="weui_label">到达</label>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <select class="weui_select" name="destination">
+					<option value="1">泥城</option>
+					<option value="2">丽都</option>
+					<option value="3">城邦</option>
+					<option value="4">东港</option>
+					<option value="5">陆家嘴</option>
+					<option value="6">龙阳路</option>
+					<option value="7">张江高科</option>
+					<option value="8">金科路</option>
+					<option value="9">广兰路</option>
+					<option value="10">集电港</option>
+				</select>
+				 </select>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				<input class="weui_input" type="text" name="destination_other" placeholder="其他地点"></input> 
+			</div>
+		</div>                
+		<div class="weui_cell">
+			<div class="weui_cell_hd"><label class="weui_label">发车时间</label></div>
+			<div class="weui_cell_bd weui_cell_primary">
+				<input class="weui_input" type="datetime-local" value="" placeholder=""/>
+			</div>
+		</div>
+		<div class="weui_cell weui_cell_select weui_select_after">
+			<div class="weui_cell_hd">
+				<label class="weui_label">男女</label>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <select class="weui_select" name="sex">							
+					<option value="0" selected>不限</option>				
+					<option value ="1">女</option>  
+					<option value ="2">男</option>							
+				 </select>
+			</div>
+		</div>
+		<div class="weui_cell">
+			<div class="weui_cell_bd weui_cell_primary">
+				<textarea class="weui_textarea" placeholder="备注说明" rows="3" name="otherComments"></textarea>
+				<div class="weui_textarea_counter"><span>0</span>/200</div>
+			</div>
+		</div>		
+		<div class="weui_btn_area">
+			<a class="weui_btn weui_btn_primary" href="javascript:;" id="confirm" data-id="publishList">发布</a>
+		</div>
+	</div>
+</div>
+</script>
+ <script type="text/html" id="tpl_publishList">
+<div class="page" >
+    <div class="hd">
+        <h1 class="page_title">发布成功</h1>
+    </div>
+     <div class="weui_cells weui_cells_access">
+            <a class="weui_cell" href="tel:13761838982">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>7:30，丽都到张江地铁，13761838982</p>
+                </div>
+                <div class="weui_cell_ft">有4个位子，要求女性</div>
+            </a>
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>18:00，张江高科到丽都，13761838982</p>
+                </div>
+                <div class="weui_cell_ft">有4个位子，要求女性</div>
+            </a>
+        </div>
+      
+     <div class="bd spacing">
+       
+        <div class="button_sp_area">
+            
+            <a href="javascript:;" class="weui_btn weui_btn_primary" id="confirm" data-id="publish" >确认</a>
+
+        </div>
+    </div>
+</div>
+</script>
+    <script src="js/zepto.js"></script>
+    <script src="js/pincarweb.js"></script>
+</body>
+</html>
