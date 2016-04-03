@@ -23,7 +23,7 @@ $(function () {
                 var url = location.hash.indexOf('#') === 0 ? location.hash : '#';
                 var page = self._find('url', url) || self._defaultPage;
                 if (state._pageIndex <= self._pageIndex || self._findInStack(url)) {
-                    self._back(page);
+                    self._back(page);//todo
                 } else {
                     self._go(page);
                 }
@@ -57,7 +57,13 @@ $(function () {
             history.replaceState && history.replaceState({_pageIndex: this._pageIndex}, '', location.href);
 
             var html = $(config.template).html();
+			if(pincar.html) {
+				html=pincar.html;
+				//pincar.html=null;
+			}
+			
             var $html = $(html).addClass('slideIn').addClass(config.name);
+			//$html = $(config.template)
             this.$container.append($html);
             this._pageStack.push({
                 config: config,
@@ -85,6 +91,11 @@ $(function () {
             var found = this._findInStack(url);
             if (!found) {
                 var html = $(config.template).html();
+				if(pincar.html){
+					html=pincar.html;
+					//pincar.html=null;
+				}
+				
                 var $html = $(html).css('opacity', 1).addClass(config.name);
                 $html.insertBefore(stack.dom);
 
@@ -141,7 +152,7 @@ $(function () {
     var home = {
         name: 'home',
         url: '#',
-        template: '#tpl_home',
+        template: '#tpl_home',		
         events: {
             '.js_grid': {
                 click: function (e) {
@@ -389,12 +400,12 @@ $(function () {
     var publish = {
         name: 'publish',
         url: '#publish',
-        template: '#tpl_publish',
+        template: '#tpl_publish',		
         events: {
 		    '#confirm': {
                 click: function () {
-                    var id = $(this).data('id');
-                    pageManager.go(id);
+                    var id = $(this).data('id');					
+					pincar.publish();//.after(function(){pageManager.go(id);});					
                 }
 			}
 		}
@@ -438,12 +449,36 @@ $(function () {
 			}
 		}
     };
+	
+	var findCar = {
+        name: 'findCar',
+        url: '#findCar',
+        template: '#tpl_findCar',		
+        events: {
+		    '#find': {
+                click: function () {
+                    var id = $(this).data('id');					
+					pincar.findCar();//.after(function(){pageManager.go(id);});					
+                }
+			}
+		}
+    };
+	
+	var carList = {
+        name: 'carList',
+        url: '#carList',
+        template: '#tpl_carList'        
+    };
+	
+	
 	pageManager.push(publish)
 	.push(publishList)
 	.push(search)
 	.push(searchList)
-	.setDefault('publish')
-    .init(); 
+	.push(findCar).push(carList);
+	window.pageManager = pageManager;
+	//.setDefault('publish')
+    //.init(); 
    /* pageManager.push(home)
         .push(button)
         .push(cell)
@@ -483,7 +518,144 @@ function urlArgs() {
     return args;                               // Return the parsed arguments
 }
 
-var pincar ={webchatUserid:''};
+var pincar ={webchatUserid:'',  
+  afterHandler: [],
+  after: function(f){
+	  this.afterHandler.push(f);
+  },
+  findCar: function(){
+		//console.log(window.location.pathname);
+		var findCarServReq ={};
+		findCarServReq.startPoint=$("#zhaoche_startPoint").val();
+		findCarServReq.destination=$("#zhaoche_destination").val();
+		findCarServReq.time=$("#zhaoche_time").val();
+		var findCarUrl= "http://120.25.196.109/zhaoChe/"+this.webchatUserid;
+		$.ajax({
+			url:findCarUrl,
+			data:findCarServReq,
+			type:"POST",
+			dataType:"json",
+			success: pincar.findCarSuccess
+			}
+		);
+	  return this;
+  },
+  findCarSuccess: function(msg, status, xhr) {
+		console.log("findCar success");	
+		console.log(JSON.stringify(msg));
+		/*
+		res result://success ,http code:200
+    {
+        data : [{
+                    userId : 111,//车主id
+                    nickname : '',
+                    mobileNo : 139xxxx1234 ,
+                    startPoint:'',
+                    destination:'',
+                    time : '2016-02-24 21:00',//出发时间
+                    carInfo : {//车主的车子信息
+                        id : 111,//carId in our system
+                        brand:'',
+                        verticallicense:'',//隐藏中间3位
+                        color:'',
+                        totalSeatNum:3,
+                        remainderSeatNum:1,
+                        status : 1 //1:等待中 2：满员了 3：异常了（车主取消了或
+                            者其他意外情况）
+                    }
+               }]
+    }  */
+		var listHtmlTxt = [];
+		for (var i=0; i<msg.data.length; i++) {
+			var m = msg.data[i];		
+			var line = "<a class=\"weui_cell\" href=\"tel:"+m.mobileNo+
+			 "\"><div class=\"weui_cell_bd weui_cell_primary\">"+
+			"<p>"+m.time+", "+m.startpoint+"到"+m.destination+", "+m.mobileNo+"</p></div></a>";		
+			listHtmlTxt.push(line);			
+		}
+		
+		//$("#findResultList").html(listHtmlTxt.join("\n"));
+		var carListhtml ="<div class=\"page\"><div class=\"hd\"><h1 class=\"page_title\">车子信息</h1></div>"+
+     "<div class=\"weui_cells weui_cells_access\">";
+		carListhtml+=listHtmlTxt.join("\n");
+		carListhtml +="</div></div>";
+		
+		pincar.carListhtml=carListhtml;
+  },
+  publish: function(){
+	  
+	//console.log($("#test").name);
+	var pubCarServReq ={};
+	//$("#publishCarServiceForm select[name='cartype']").val();
+	pubCarServReq.startPoint=$("#pub_startPoint").val();
+	pubCarServReq.destination=$("#pub_destination").val();
+	pubCarServReq.time=$("#pub_time").val();
+	pubCarServReq.sex=$("#pub_sex").val();
+	pubCarServReq.remainderSeatNum=$("#pub_remainderSeatNum").val();
+	//pubCarServReq.userId = $("body").data("userToken").userId;
+	var pubUrl= "/zhaoren?userid="+this.webchatUserid;
+	/*$.ajax({
+		url:pubUrl,
+		data:pubCarServReq,
+		type:"POST",
+		dataType:"json",
+		success: pincar.pubSuccess
+	});*/
+	/*var pubUrl= "http://120.25.196.109/zhaoRen/"+this.webchatUserid+"?callback=?";
+	
+	$.ajaxJSONP({
+		url:pubUrl,
+		data:pubCarServReq,
+		success: pincar.pubSuccess
+	});*/
+	//var pubUrl= "http://120.25.196.109/zhaoRen/"+this.webchatUserid;
+	$.ajax({
+		url:pubUrl,
+		data:pubCarServReq,
+		type:"POST",
+		dataType:"json",
+		success: pincar.pubSuccess
+	});
+	return this;
+}, pubSuccess : function (msg, status, xhr) {
+		console.log("pub success");	
+		/*{data : [
+				{
+					userId : 111,
+					nickname : '',
+					startpoint : '',
+					destination : '',
+					time : '',
+					mobileNo : '138xxxx1234'
+				}
+		]"}*/
+		console.log(JSON.stringify(msg));
+		var listHtmlTxt = [];
+		for (var i=0; i<msg.data.length; i++) {
+			var m = msg.data[i];		
+			var line = "<a class=\"weui_cell\" href=\"tel:"+m.mobileNo+
+			 "\"><div class=\"weui_cell_bd weui_cell_primary\">"+
+			"<p>"+m.time+", "+m.startpoint+"到"+m.destination+", "+m.mobileNo+"</p></div></a>";		
+			listHtmlTxt.push(line);
+			console.log("matched request:"+line);	
+		}
+		
+		//$("#pubResultList").html(listHtmlTxt.join("\n"));
+		var pubRSHtml ="<div class=\"page\"><div class=\"hd\"><h1 class=\"page_title\">发布成功</h1></div>"+
+     "<div class=\"weui_cells weui_cells_access\">";
+		pubRSHtml+=listHtmlTxt.join("\n");
+		pubRSHtml +="</div></div>";
+		//pincar.html=pubRSHtml;
+		//$("#tpl_publish").html(pubRSHtml);
+		$("#publishListResult").html("<div class=\"weui_cells weui_cells_access\">"+listHtmlTxt.join("\n")+"</div>");
+		pageManager.go('publish');
+        /*if(pincar.afterHandler.length>0){
+			for(var i=0;i<pincar.afterHandler.length;i++){
+				pincar.afterHandler[i]();
+			}
+		}*/		
+	}
+};
 
 $(function (){
 	var args = urlArgs();
@@ -493,4 +665,6 @@ $(function (){
 	}	
 	//pincar.webchatUserid=('userid' in args) && args.userid;
 	//console.log('you are '+pincar.webchatUserid);	
+	pageManager.setDefault('publish')//findCar
+	.init(); 
 })
