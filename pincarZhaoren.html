@@ -114,12 +114,12 @@
 			</div>
 			<div class="weui_cell_bd weui_cell_primary">
 				 <select class="weui_select" id="pub_destination">
+					<option value="龙阳路">龙阳路</option>
 					<option value="泥城">泥城</option>
 					<option value="丽都">丽都</option>
 					<option value="城邦">城邦</option>
 					<option value="东港">东港</option>
-					<option value="陆家嘴">陆家嘴</option>
-					<option value="龙阳路">龙阳路</option>
+					<option value="陆家嘴">陆家嘴</option>					
 					<option value="张江高科">张江高科</option>
 					<option value="金科路">金科路</option>
 					<option value="广兰路">广兰路</option>
@@ -157,6 +157,34 @@
 		</div>		
 		<div class="weui_btn_area">
 			<a class="weui_btn weui_btn_primary" href="javascript:;" id="confirm" data-id="publishList">发布</a>
+		</div>
+	</div>
+	<div id="toast" style="display: none;">
+		<div class="weui_mask_transparent"></div>
+		<div class="weui_toast">
+			<i class="weui_icon_toast"></i>
+			<p class="weui_toast_content">已完成</p>
+		</div>
+	</div>
+	<div id="loadingToast" class="weui_loading_toast" style="display:none;">
+		<div class="weui_mask_transparent"></div>
+		<div class="weui_toast">
+			<div class="weui_loading">
+				<!-- :) -->
+				<div class="weui_loading_leaf weui_loading_leaf_0"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_1"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_2"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_3"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_4"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_5"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_6"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_7"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_8"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_9"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_10"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_11"></div>
+			</div>
+			<p class="weui_toast_content">数据加载中</p>
 		</div>
 	</div>
 	<div id="publishListResult"></div>

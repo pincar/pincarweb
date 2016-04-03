@@ -423,32 +423,6 @@ $(function () {
 			}
 		}
     };
-	var search = {
-        name: 'search',
-        url: '#search',
-        template: '#tpl_search',
-        events: {
-		    '#confirm': {
-                click: function () {
-                    var id = $(this).data('id');
-                    pageManager.go(id);
-                }
-			}
-		}
-    };
-	var searchList = {
-        name: 'searchList',
-        url: '#searchList',
-        template: '#tpl_searchList',
-        events: {
-		    '#confirm': {
-                click: function () {
-                    var id = $(this).data('id');					
-                    pageManager.go(id);
-                }
-			}
-		}
-    };
 	
 	var findCar = {
         name: 'findCar',
@@ -458,7 +432,7 @@ $(function () {
 		    '#find': {
                 click: function () {
                     var id = $(this).data('id');					
-					pincar.findCar();//.after(function(){pageManager.go(id);});					
+					pincar.findCar();				
                 }
 			}
 		}
@@ -472,9 +446,7 @@ $(function () {
 	
 	
 	pageManager.push(publish)
-	.push(publishList)
-	.push(search)
-	.push(searchList)
+	.push(publishList)	
 	.push(findCar).push(carList);
 	window.pageManager = pageManager;
 	//.setDefault('publish')
@@ -525,19 +497,24 @@ var pincar ={webchatUserid:'',
   },
   findCar: function(){
 		//console.log(window.location.pathname);
+		$("#loadingToast").show();
 		var findCarServReq ={};
 		findCarServReq.startPoint=$("#zhaoche_startPoint").val();
 		findCarServReq.destination=$("#zhaoche_destination").val();
 		findCarServReq.time=$("#zhaoche_time").val();
-		var findCarUrl= "http://120.25.196.109/zhaoChe/"+this.webchatUserid;
+		//var findCarUrl= "http://120.25.196.109/zhaoChe/"+this.webchatUserid;
+		var findCarUrl= "/zhaoChe/"+this.webchatUserid;
 		$.ajax({
 			url:findCarUrl,
 			data:findCarServReq,
 			type:"POST",
 			dataType:"json",
-			success: pincar.findCarSuccess
+			success: pincar.findCarSuccess,
+			complete: function(){
+				console.log('findCar done');
+				$("#loadingToast").hide();
 			}
-		);
+		});
 	  return this;
   },
   findCarSuccess: function(msg, status, xhr) {
@@ -570,19 +547,22 @@ var pincar ={webchatUserid:'',
 			var m = msg.data[i];		
 			var line = "<a class=\"weui_cell\" href=\"tel:"+m.mobileNo+
 			 "\"><div class=\"weui_cell_bd weui_cell_primary\">"+
-			"<p>"+m.time+", "+m.startpoint+"到"+m.destination+", "+m.mobileNo+"</p></div></a>";		
+			"<p>"+m.time+", "+m.startPoint+"到"+m.destination+", "+m.mobileNo+"</p></div></a>";		
 			listHtmlTxt.push(line);			
 		}
 		
 		//$("#findResultList").html(listHtmlTxt.join("\n"));
-		var carListhtml ="<div class=\"page\"><div class=\"hd\"><h1 class=\"page_title\">车子信息</h1></div>"+
+		var carListhtml =
      "<div class=\"weui_cells weui_cells_access\">";
 		carListhtml+=listHtmlTxt.join("\n");
-		carListhtml +="</div></div>";
+		carListhtml +="</div>";
 		
-		pincar.carListhtml=carListhtml;
+		//pincar.carListhtml=carListhtml;
+		$("#carListResult").html(carListhtml);
+		window.document.getElementById('carListResult').scrollIntoView();
   },
   publish: function(){
+	  $("#loadingToast").show();
 	  
 	//console.log($("#test").name);
 	var pubCarServReq ={};
@@ -593,7 +573,7 @@ var pincar ={webchatUserid:'',
 	pubCarServReq.sex=$("#pub_sex").val();
 	pubCarServReq.remainderSeatNum=$("#pub_remainderSeatNum").val();
 	//pubCarServReq.userId = $("body").data("userToken").userId;
-	var pubUrl= "/zhaoren?userid="+this.webchatUserid;
+	//var pubUrl= "/zhaoren?userid="+this.webchatUserid;
 	/*$.ajax({
 		url:pubUrl,
 		data:pubCarServReq,
@@ -608,13 +588,17 @@ var pincar ={webchatUserid:'',
 		data:pubCarServReq,
 		success: pincar.pubSuccess
 	});*/
-	//var pubUrl= "http://120.25.196.109/zhaoRen/"+this.webchatUserid;
+	var pubUrl= "http://120.25.196.109/zhaoRen/"+this.webchatUserid;
 	$.ajax({
 		url:pubUrl,
 		data:pubCarServReq,
 		type:"POST",
 		dataType:"json",
-		success: pincar.pubSuccess
+		success: pincar.pubSuccess,
+		complete: function(){
+			console.log('adjax done');
+			$("#loadingToast").hide();
+		}
 	});
 	return this;
 }, pubSuccess : function (msg, status, xhr) {
@@ -629,7 +613,7 @@ var pincar ={webchatUserid:'',
 					mobileNo : '138xxxx1234'
 				}
 		]"}*/
-		console.log(JSON.stringify(msg));
+		//console.log(JSON.stringify(msg));
 		var listHtmlTxt = [];
 		for (var i=0; i<msg.data.length; i++) {
 			var m = msg.data[i];		
@@ -637,7 +621,7 @@ var pincar ={webchatUserid:'',
 			 "\"><div class=\"weui_cell_bd weui_cell_primary\">"+
 			"<p>"+m.time+", "+m.startpoint+"到"+m.destination+", "+m.mobileNo+"</p></div></a>";		
 			listHtmlTxt.push(line);
-			console.log("matched request:"+line);	
+			//console.log("matched request:"+line);	
 		}
 		
 		//$("#pubResultList").html(listHtmlTxt.join("\n"));
@@ -648,7 +632,15 @@ var pincar ={webchatUserid:'',
 		//pincar.html=pubRSHtml;
 		//$("#tpl_publish").html(pubRSHtml);
 		$("#publishListResult").html("<div class=\"weui_cells weui_cells_access\">"+listHtmlTxt.join("\n")+"</div>");
-		pageManager.go('publish');
+		//console.log('publishListResult.scrollLeft is '+$("#publishListResult").scrollLeft());
+		//console.log('publishListResult.scrollTop is '+$("#publishListResult").scrollTop());
+		//$("#publishListResult").scrollTop(0);
+		//var pbrs = $("#publishListResult").get(0);
+		window.document.getElementById("publishListResult").scrollIntoView();
+		//pbrs.scrollTop=pbrs.scrollHeight;
+		//window.scrollTo(0,document.body.scrollHeight);
+		//window.scrollTo(0,0);
+		//pageManager.go('publish');
         /*if(pincar.afterHandler.length>0){
 			for(var i=0;i<pincar.afterHandler.length;i++){
 				pincar.afterHandler[i]();
@@ -665,6 +657,6 @@ $(function (){
 	}	
 	//pincar.webchatUserid=('userid' in args) && args.userid;
 	//console.log('you are '+pincar.webchatUserid);	
-	pageManager.setDefault('publish')//findCar
+	pageManager.setDefault('findCar')//publish
 	.init(); 
 })

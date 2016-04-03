@@ -10,7 +10,7 @@ var server = http.createServer(function (request, response) {
     var pathname = url.parse(request.url).pathname;
     var realPath = path.join(".", pathname);
     console.log(realPath);
-	if(realPath.indexOf("zhaoren")>=0) {
+	if(realPath.indexOf("zhaoRen")>=0) {
 		//console.log('zr:'+pathname);
 		var resData = {
 			data : [
@@ -30,6 +30,50 @@ var server = http.createServer(function (request, response) {
                 mobileNo : '131xxxx1001'
             }
         ]
+		};
+		response.writeHead(200, {
+                        'Content-Type': 'charset:utf-8;application/json'
+                    });
+		response.write(JSON.stringify(resData));
+		response.end();
+		return;
+	}
+	if(realPath.indexOf("zhaoChe")>=0) {
+		//console.log('zc:'+pathname);
+			var resData = {
+			data : [{
+						userId : 111,//车主id
+						nickname : '',
+						mobileNo : 13300001234 ,
+						startPoint:'龙阳路',
+						destination:'蓝邦',
+						time : '2016-04-03 18:50',//出发时间
+						carInfo : {//车主的车子信息
+							id : 111,//carId in our system
+							brand:'',
+							verticallicense:'',//隐藏中间3位
+							color:'',
+							totalSeatNum:3,
+							remainderSeatNum:1,
+							status : 1 //1:等待中 2：满员了 3：异常了（车主取消了或者其他意外情况）
+						}
+				   },{
+						userId : 111,//车主id
+						nickname : '',
+						mobileNo : 13799995678 ,
+						startPoint:'张江高科',
+						destination:'东港',
+						time : '2016-04-03 19:00',//出发时间
+						carInfo : {//车主的车子信息
+							id : 111,//carId in our system
+							brand:'',
+							verticallicense:'',//隐藏中间3位
+							color:'',
+							totalSeatNum:3,
+							remainderSeatNum:1,
+							status : 1 //1:等待中 2：满员了 3：异常了（车主取消了或者其他意外情况）
+						}
+				   }]
 		};
 		response.writeHead(200, {
                         'Content-Type': 'charset:utf-8;application/json'
