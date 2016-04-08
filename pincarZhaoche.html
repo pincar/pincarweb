@@ -3,13 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>找车</title>
+    <title>拼车</title>
     <link rel="stylesheet" href="style/weui.css"/>
     <link rel="stylesheet" href="style/example.css"/>
 </head>
 <body ontouchstart>
-    <div class="container js_container"> </div>
- <script type="text/html" id="tpl_findCar">
+	<div class="weui_tab">
+		<div class="weui_tab_bd">
+		<div class="container js_container" style="overflow:scroll"> </div>
+		</div>
+		<div class="weui_tabbar">
+			<a href="javascript:;" class="weui_tabbar_item weui_bar_item_on" id="tabZhaoRen">
+				<div class="weui_tabbar_icon">
+					<img src="./images/icon_nav_button.png" alt="">
+				</div>
+				<p class="weui_tabbar_label">找人</p>
+			</a>        
+			<a href="javascript:;" class="weui_tabbar_item" id="tabZhaoChe">
+				<div class="weui_tabbar_icon">
+					<img src="./images/icon_nav_article.png" alt="">
+				</div>
+				<p class="weui_tabbar_label">找车</p>
+			</a>
+			<a href="javascript:;" class="weui_tabbar_item" id="tabMe">
+				<div class="weui_tabbar_icon">
+					<img src="./images/icon_nav_cell.png" alt="">
+				</div>
+				<p class="weui_tabbar_label">我</p>
+			</a>
+		</div>
+	</div>
+	
+<script type="text/html" id="tpl_publish">
+<div class="page" >
+    <div class="hd">
+        <h1 class="page_title">发布信息</h1>
+    </div>
+	<!--<div id="test"></div>-->
+	<div class="weui_cells weui_cells_form">
+		<div class="weui_cell">			    
+			<div class="weui_cell_hd"><label class="weui_label">车型</label></div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <select class="weui_select" id="pub_carBrand">
+					<option value="cb001">大众</option>
+					<option value="cb002">福特</option>
+					<option value="cb003">雪弗兰</option>
+					<option value="cb004">别克</option>
+				 </select>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <select class="weui_select" id="pub_carModel">
+					<option value="vwlangyi">朗逸</option>
+					<option value="fordfocus">福克斯</option>
+					<option value="chevroletmalibu">迈锐宝</option>
+					<option value="buicklacrosse">君越</option>
+				 </select>
+			</div>
+		</div>
+		<div class="weui_cell">
+			<div class="weui_cell_hd">
+				<label class="weui_label">其他车型</label>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				<input class="weui_input" type="text" id="pub_carBrand_other" placeholder="品牌"></input> 
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <input class="weui_input" type="text" id="pub_carModel_other" placeholder="车型"></input>
+			</div>
+		</div>
+		<div class="weui_cell">
+			<div class="weui_cell_hd">
+				<label class="weui_label">颜色/车牌</label>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <select class="weui_select" id="pub_carColor">
+					<option value="red">红色</option>
+					<option value="white">白色</option>
+					<option value="black">黑色</option>
+					<option value="blue">蓝色</option>	
+					<option value="gray">灰色</option>
+					<option value="yellow">紫色</option>
+					<option value="purple">紫色</option>									
+				 </select>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <input class="weui_input" type="text" id="pub_verticalLicense" placeholder="你的车牌"></input>
+			</div>
+		</div>
+		<div class="weui_cell">
+			<div class="weui_cell_hd">
+				<label class="weui_label">电话</label>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <input class="weui_input" type="text" id="pub_mobileNo" pattern="1[0-9]{10}" placeholder="你的电话"></input>
+			</div>
+		</div>
+		<div class="weui_cell weui_cell_select weui_select_after">
+			<div class="weui_cell_hd">
+				<label class="weui_label">空位数</label>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <select class="weui_select" id="pub_remainderSeatNum">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+				 </select>
+			</div>
+		</div>			
+		<div class="weui_cell weui_cell_select weui_select_after">
+			<div class="weui_cell_hd">
+				<label class="weui_label">出发地</label>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <select class="weui_select" id="pub_startPoint">
+					<option value="泥城">泥城</option>
+					<option value="丽都">丽都</option>
+					<option value="蓝邦">蓝邦</option>
+					<option value="东港">东港</option>
+					<option value="陆家嘴">陆家嘴</option>
+					<option value="龙阳路">龙阳路</option>
+					<option value="张江高科">张江高科</option>
+					<option value="金科路">金科路</option>
+					<option value="广兰路">广兰路</option>
+					<option value="集电港">集电港</option>
+				 </select>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				<input class="weui_input" type="text" id="pub_startPoint_other" placeholder="其他地点"></input> 
+			</div>
+		</div>			
+		<div class="weui_cell weui_cell_select weui_select_after">			
+			<div class="weui_cell_hd">
+				<label class="weui_label">到达</label>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <select class="weui_select" id="pub_destination">
+					<option value="龙阳路">龙阳路</option>
+					<option value="泥城">泥城</option>
+					<option value="丽都">丽都</option>
+					<option value="城邦">城邦</option>
+					<option value="东港">东港</option>
+					<option value="陆家嘴">陆家嘴</option>					
+					<option value="张江高科">张江高科</option>
+					<option value="金科路">金科路</option>
+					<option value="广兰路">广兰路</option>
+					<option value="集电港">集电港</option>
+				</select>
+				 </select>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				<input class="weui_input" type="text" id="pub_destination_other" placeholder="其他地点"></input> 
+			</div>
+		</div>                
+		<div class="weui_cell">
+			<div class="weui_cell_hd"><label class="weui_label">发车时间</label></div>
+			<div class="weui_cell_bd weui_cell_primary">
+				<input class="weui_input" type="datetime-local" value="" id="pub_time"placeholder=""/>
+			</div>
+		</div>
+		<div class="weui_cell weui_cell_select weui_select_after">
+			<div class="weui_cell_hd">
+				<label class="weui_label">男女</label>
+			</div>
+			<div class="weui_cell_bd weui_cell_primary">
+				 <select class="weui_select" id="pub_sex">							
+					<option value="0" selected>不限</option>				
+					<option value ="1">女</option>  
+					<option value ="2">男</option>							
+				 </select>
+			</div>
+		</div>
+		
+		<div class="weui_cell">
+			<div class="weui_cell_bd weui_cell_primary">
+				<textarea class="weui_textarea" placeholder="备注说明" rows="3" id="pub_otherComments"></textarea>
+				<div class="weui_textarea_counter"><span>0</span>/200</div>
+			</div>
+		</div>
+		<div class="weui_cell">			
+			<div class="weui_cell_bd weui_cell_primary">				
+				<a class="weui_btn weui_btn_primary" href="javascript:;" id="confirm" data-id="publishList">发布</a>
+			</div>
+		</div>
+		<!--<div class="weui_btn_area">
+			<a class="weui_btn weui_btn_primary" href="javascript:;" id="confirm" data-id="publishList">发布</a>
+		</div>-->
+	</div>	
+	<div id="pubLoadingToast" class="weui_loading_toast" style="display:none;">
+		<div class="weui_mask_transparent"></div>
+		<div class="weui_toast">
+			<div class="weui_loading">
+				<div class="weui_loading_leaf weui_loading_leaf_0"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_1"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_2"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_3"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_4"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_5"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_6"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_7"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_8"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_9"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_10"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_11"></div>
+			</div>
+			<p class="weui_toast_content">数据加载中</p>
+		</div>
+	</div>
+	<div id="publishListResult"></div>
+</div>
+</script>
+ <script type="text/html" id="tpl_findCar"> 
 <div class="page" >
     <div class="hd">
         <h1 class="page_title">找车</h1>
@@ -110,7 +314,14 @@
 	<div id="carListResult"></div>
 </div>
 </script>
-<script type="text/html" id="tpl_carList">
+<script type="text/html" id="tpl_home">
+</script>
+<script type="text/html" id="tpl_me">
+<div class="page" >
+    <div class="hd">
+        <h1 class="page_title">我</h1>
+    </div>
+</div>
 </script>
 <script src="js/zepto.js"></script>
 <script src="js/pincarweb.js"></script>
