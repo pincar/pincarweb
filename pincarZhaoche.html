@@ -6,11 +6,12 @@
     <title>拼车</title>
     <link rel="stylesheet" href="style/weui.css"/>
     <link rel="stylesheet" href="style/example.css"/>
+	<link rel="stylesheet" href="style/pincar.css"/>
 </head>
 <body ontouchstart>
 	<div class="weui_tab">
-		<div class="weui_tab_bd">
-		<div class="container js_container" style="overflow:scroll"> </div>
+		<div class="weui_tab_bd2">
+			<div class="weui_tab_bd2_item2 container js_container" ></div>
 		</div>
 		<div class="weui_tabbar">
 			<a href="javascript:;" class="weui_tabbar_item weui_bar_item_on" id="tabZhaoRen">
@@ -174,21 +175,15 @@
 				 </select>
 			</div>
 		</div>
-		
 		<div class="weui_cell">
 			<div class="weui_cell_bd weui_cell_primary">
 				<textarea class="weui_textarea" placeholder="备注说明" rows="3" id="pub_otherComments"></textarea>
 				<div class="weui_textarea_counter"><span>0</span>/200</div>
 			</div>
 		</div>
-		<div class="weui_cell">			
-			<div class="weui_cell_bd weui_cell_primary">				
-				<a class="weui_btn weui_btn_primary" href="javascript:;" id="confirm" data-id="publishList">发布</a>
-			</div>
-		</div>
-		<!--<div class="weui_btn_area">
+		<div class="weui_btn_area">
 			<a class="weui_btn weui_btn_primary" href="javascript:;" id="confirm" data-id="publishList">发布</a>
-		</div>-->
+		</div>		
 	</div>	
 	<div id="pubLoadingToast" class="weui_loading_toast" style="display:none;">
 		<div class="weui_mask_transparent"></div>
