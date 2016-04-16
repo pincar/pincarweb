@@ -554,6 +554,7 @@ var pincar ={webchatUserid:'',
 		window.document.getElementById('carListResult').scrollIntoView();
   },
   publish: function(){
+	  window.document.getElementById('pubTitle').scrollIntoView();	  	  
 	  $("#pubLoadingToast").show();
 	  
 	//console.log($("#test").name);
