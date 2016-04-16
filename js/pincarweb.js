@@ -19,12 +19,14 @@ $(function () {
             var self = this;
 
             $(window).on('hashchange', function () {
-                var state = history.state || {};
+                var state = history.state || {};				 
                 var url = location.hash.indexOf('#') === 0 ? location.hash : '#';
                 var page = self._find('url', url) || self._defaultPage;
                 if (state._pageIndex <= self._pageIndex || self._findInStack(url)) {
+					console.log('#####back <===to url: '+url);
                     self._back(page);//todo
                 } else {
+					console.log('#####go===> to url: '+url);
                     self._go(page);
                 }
             });
@@ -552,7 +554,7 @@ var pincar ={webchatUserid:'',
 		window.document.getElementById('carListResult').scrollIntoView();
   },
   publish: function(){
-	  $("#loadingToast").show();
+	  $("#pubLoadingToast").show();
 	  
 	//console.log($("#test").name);
 	var pubCarServReq ={};
@@ -587,7 +589,7 @@ var pincar ={webchatUserid:'',
 		success: pincar.pubSuccess,
 		complete: function(){
 			console.log('adjax done');
-			$("#loadingToast").hide();
+			$("#pubLoadingToast").hide();
 		}
 	});
 	return this;
