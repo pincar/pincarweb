@@ -445,10 +445,14 @@ var pincar = {
     webChatStartPoint: '',
     webChatDestination: '',
     webChatTime: '',
-    webChatDetail: ''
+    webChatDetail: '',
+	webChatId:''
 };
 function initial(page){
-   if($("#userId")[0]!=undefined)
+
+	if (pincar.webChatMenuId == 'zhaoRen') {
+
+    if($("#userId")[0]!=undefined)
     $("#userId")[0].value = pincar.webChatUserId;
 	if($("#type")[0]!=undefined)
     $("#type")[0].value = pincar.webChatType;
@@ -466,6 +470,54 @@ function initial(page){
     $("#detail")[0].value = pincar.webChatDetail;
 	if($("#time")[0]!=undefined)
     $("#time")[0].value = pincar.webChatTime;
+    }
+    else if (pincar.webChatMenuId == 'zhaoChe') {
+
+    if($("#userIdZhaoChe")[0]!=undefined)
+    $("#userIdZhaoChe")[0].value = pincar.webChatUserId;
+	if($("#typeZhaoChe")[0]!=undefined)
+    $("#typeZhaoChe")[0].value = pincar.webChatType;
+	if($("#cardZhaoChe")[0]!=undefined)
+    $("#cardZhaoChe")[0].value = pincar.webChatCard;
+	if($("#phoneZhaoChe")[0]!=undefined)
+    $("#phoneZhaoChe")[0].value = pincar.webChatPhone;
+	if($("#seatZhaoChe")[0]!=undefined)
+    $("#seatZhaoChe")[0].value = pincar.webChatSeat;
+	if($("#startPointZhaoChe")[0]!=undefined)
+    $("#startPointZhaoChe")[0].value = pincar.webChatStartPoint;
+	if($("#destinationZhaoChe")[0]!=undefined)
+    $("#destinationZhaoChe")[0].value = pincar.webChatDestination;
+	if($("#detailZhaoChe")[0]!=undefined)
+    $("#detailZhaoChe")[0].value = pincar.webChatDetail;
+	if($("#timeZhaoChe")[0]!=undefined)
+    $("#timeZhaoChe")[0].value = pincar.webChatTime;
+
+    } else if (pincar.webChatMenuId == 'mine') {
+	
+    if($("#userIdMine")[0]!=undefined)
+    $("#userIdMine")[0].value = pincar.webChatUserId;
+	if($("#typeMine")[0]!=undefined)
+    $("#typeMine")[0].value = pincar.webChatType;
+	if($("#cardMine")[0]!=undefined)
+    $("#cardMine")[0].value = pincar.webChatCard;
+	if($("#phoneMine")[0]!=undefined)
+    $("#phoneMine")[0].value = pincar.webChatPhone;
+	if($("#seatMine")[0]!=undefined)
+    $("#seatMine")[0].value = pincar.webChatSeat;
+	if($("#startPointMine")[0]!=undefined)
+    $("#startPointMine")[0].value = pincar.webChatStartPoint;
+	if($("#destinationMine")[0]!=undefined)
+    $("#destinationMine")[0].value = pincar.webChatDestination;
+	if($("#detailMine")[0]!=undefined)
+    $("#detailMine")[0].value = pincar.webChatDetail;
+	if($("#timeMine")[0]!=undefined)
+    $("#timeMine")[0].value = pincar.webChatTime;
+
+    } else {
+
+       null;
+
+    }
 }
 function urlArgs() {
 
@@ -544,24 +596,6 @@ $(function () {
         pageManager.setDefault('home').init();
 
     }
-//     if($("#userId")[0]!=undefined)
-//     $("#userId")[0].value = pincar.webChatUserId;
-// 	if($("#type")[0]!=undefined)
-//     $("#type")[0].value = pincar.webChatType;
-// 	if($("#card")[0]!=undefined)
-//     $("#card")[0].value = pincar.webChatCard;
-// 	if($("#phone")[0]!=undefined)
-//     $("#phone")[0].value = pincar.webChatPhone;
-// 	if($("#seat")[0]!=undefined)
-//     $("#seat")[0].value = pincar.webChatSeat;
-// 	if($("#startPoint")[0]!=undefined)
-//     $("#startPoint")[0].value = pincar.webChatStartPoint;
-// 	if($("#destination")[0]!=undefined)
-//     $("#destination")[0].value = pincar.webChatDestination;
-// 	if($("#detail")[0]!=undefined)
-//     $("#detail")[0].value = pincar.webChatDetail;
-// 	if($("#time")[0]!=undefined)
-//     $("#time")[0].value = pincar.webChatTime;
 	
     console.log('outer-->main');
 
@@ -589,12 +623,13 @@ function displayPublishList() {
         startPoint: $("#startPoint")[0].value,
         destination: $("#destination")[0].value,
         detail: $("#detail")[0].value,
-        time: $("#time")[0].value
+        time: $("#time")[0].value,
+		id:pincar.webChatId
     };
 
     $.ajax({
         type: 'post',
-        url: urlServer,
+        url: url,
         data: data,
         dataType: 'json',
         //jsonp:'callback',
@@ -614,6 +649,8 @@ function displayPublishList() {
             var line = "";
             var line1 = "";
             var listHtmlTxt = [];
+			pincar.webChatId=data.order.id;
+			console.log(JSON.stringify(data.order.id));
           //line=line+"<script type='text/html' id='tpl_publishList'>\n";
           //line=line+"<div class='page' >\n";
           //line=line+    "<div class='hd'><h1 class='page_title'>????</h1></div>\n";
@@ -692,10 +729,10 @@ function displayPublishList() {
                 ]
             };
 
-            for (var i = 0; i < carList.data.length; i++) {
-           // for (var i = 0; i < data.data.length; i++) {
-                var m = carList.data[i];
-				//var m = data.data[i];
+           // for (var i = 0; i < carList.data.length; i++) {
+            for (var i = 0; i < data.data.length; i++) {
+                //var m = carList.data[i];
+				var m = data.data[i];
                 line1 = line1 + "<div class='weui_cells weui_cells_access'>\n";
                 line1 = line1 + " <a class='weui_cell' href='javascript:alert(13761838982);'>\n";
                 line1 = line1 + "<div class='weui_cell_bd weui_cell_primary'>\n";
@@ -745,123 +782,38 @@ function displaySearchList() {
     }
     $loadingToast.show();
 
-    var urlServer = 'http://120.25.196.109/zhaoRen/'+$("#userId")[0].value;
-    var url = 'http://192.168.31.151/zhaoChe/'+$("#userId")[0].value;
+    var urlServer = 'http://120.25.196.109/zhaoRen/'+$("#userIdZhaoChe")[0].value;
+    var url = 'http://192.168.31.151/zhaoChe/'+$("#userIdZhaoChe")[0].value;
     var urlLocalTomcat='http://192.168.30.148:8080/WebRoot/servlet/PinCarServlet';
     //var time = '04/04/2016 07:30';
     var data = {
-        userId: $("#userId")[0].value,
-        phone: $("#phone")[0].value,
-        startPoint: $("#startPoint")[0].value,
-        destination: $("#destination")[0].value,
-        detail: $("#detail")[0].value,
-        time: $("#time")[0].value
+        userId: $("#userIdZhaoChe")[0].value,
+        phone: $("#phoneZhaoChe")[0].value,
+        startPoint: $("#startPointZhaoChe")[0].value,
+        destination: $("#destinationZhaoChe")[0].value,
+        detail: $("#detailZhaoChe")[0].value,
+        time: $("#timeZhaoChe")[0].value,
+		id:pincar.webChatId
     };
 
     $.ajax({
         type: 'post',
-        url: urlServer,
+        url: url,
         data: data,
         dataType: 'json',
-        //jsonp:'callback',
         timeout: 10000,
         context: $('body'),
-        //headers: {'access-control-allow-origin':'*'},
         success: function (data) {
-            // Supposing this JSON payload was received:
-            //   {"project": {"id": 42, "html": "<div>..." }}
-            // append the HTML to context object.
-            //this.append(data.project.html)
-            console.log(JSON.stringify(data));
-            //var data1 = data.responseXML;
-            //var data1 = JSON.parse(data);
-            // do nothing if we don't have initial values or we got error
-           
+		
+           console.log(JSON.stringify(data));
             var line = "";
             var line1 = "";
             var listHtmlTxt = [];
-          //line=line+"<script type='text/html' id='tpl_publishList'>\n";
-          //line=line+"<div class='page' >\n";
-          //line=line+    "<div class='hd'><h1 class='page_title'>????</h1></div>\n";
-            line = line + "<div class='weui_cells weui_cells_access'>\n";
-            line = line + " <a class='weui_cell' href='javascript:alert(13761838982);'>\n";
-            line = line + "<div class='weui_cell_bd weui_cell_primary'>\n";
-            line = line + "<p>03/30/16 7:30</p>\n";
-            line = line + "<p>丽都-张江地铁</p>\n";
-            line = line + "<p>13761838982</p>\n";
-            line = line + "</div>\n";
-            line = line + "<div class='weui_cell_ft'>途经高科路地铁站，剩余2个位子</div>\n";
-            line = line + "</a>\n";
-            line = line + "<a class='weui_cell' href='javascript:alert(\"thanks\");'>\n";
-            line = line + " <div class='weui_cell_bd weui_cell_primary'>\n";
-            line = line + "<p>03/30/16 18:25</p>\n";
-            line = line + "<p>张江高科-丽都</p>\n";
-            line = line + "<p>18917285035</p>\n";
-            line = line + " </div>\n";
-            line = line + " <div class='weui_cell_bd weui_cell_primary'>\n";
-            line = line + "<p>途经高科路地铁站，丽都华庭，还剩2个位置</p>\n";
-            line = line + " </div>\n";
-            line = line + "</a>\n";
-            line = line + "</div>  \n";
-          //line=line+     "<div class='bd spacing'>\n";
-          //line=line+        "<div class='button_sp_area'> \n";
-          //line=line+            "<a href='javascript:;' class='weui_btn weui_btn_plain_primary' id='confirm' data-id='publish' >??</a>\n";
-          //line=line+       " </div>\n";
-          //line=line+    "</div>\n";
-          //line=line+"</div>\n";
-          //line=line+"</script>\n";
-
-            var carList = {
-                data: [
-                    {
-                        userId: 111,
-                        nickname: '小王',
-                        phone: 13575600911,
-                        startPoint: "丽都",
-                        destination: '金科路',
-                        time: '2016-03-04 7:50',
-						detail:'还剩两个位子',
-                        carInfo: {
-                            id: 123, brand: '大众', verticallicense: '沪E 6***7',
-                            color: '白色', totalSeatNum: 4,
-                            remainderSeatNum: 2, status: 1
-                        }
-                    },
-                    {
-                        userId: 222,
-                        nickname: '小王',
-                        phone: 13575600911,
-                        startPoint: "丽都",
-                        destination: '金科路',
-                        time: '2016-03-04 7:50',
-						detail:'还剩两个位子',
-                        carInfo: {
-                            id: 123, brand: '大众', verticallicense: '沪E 6***7',
-                            color: '白色', totalSeatNum: 4,
-                            remainderSeatNum: 2, status: 1
-                        }
-                    },
-					{
-                        userId: 333,
-                        nickname: '小王',
-                        phone: 13575600911,
-                        startPoint: "丽都",
-                        destination: '金科路',
-                        time: '2016-03-04 7:50',
-						detail:'还剩两个位子',
-                        carInfo: {
-                            id: 123, brand: '大众', verticallicense: '沪E 6***7',
-                            color: '白色', totalSeatNum: 4,
-                            remainderSeatNum: 2, status: 1
-                        }
-                    },
-                ]
-            };
-
-            for (var i = 0; i < carList.data.length; i++) {
-           // for (var i = 0; i < data.data.length; i++) {
-                var m = carList.data[i];
-				//var m = data.data[i];
+			pincar.webChatId=data.order.id;
+			console.log(JSON.stringify(data.order.id));
+            for (var i = 0; i < data.data.length; i++) {
+                
+				var m = data.data[i];
                 line1 = line1 + "<div class='weui_cells weui_cells_access'>\n";
                 line1 = line1 + " <a class='weui_cell' href='javascript:alert(13761838982);'>\n";
                 line1 = line1 + "<div class='weui_cell_bd weui_cell_primary'>\n";
@@ -881,11 +833,9 @@ function displaySearchList() {
 
             $("#searchListResult").html(listHtmlTxt.join("\n"));
 			$("#confirm")[0].scrollIntoView();
-           // $loadingToast.hide();
 
         },
         error: function (xhr, type) {
-            //$loadingToast.hide();
             console.log('error');
             var $tooltips = $('.js_tooltips');
             if ($tooltips.css('display') != 'none') {
@@ -915,56 +865,19 @@ function displayOrderList() {
 
     $.ajax({
         type: 'post',
-        url: urlServer,
+        url: url,
         data: data,
         dataType: 'json',
-        //jsonp:'callback',
         timeout: 10000,
         context: $('body'),
-        //headers: {'access-control-allow-origin':'*'},
         success: function (data) {
-            // Supposing this JSON payload was received:
-            //   {"project": {"id": 42, "html": "<div>..." }}
-            // append the HTML to context object.
-            //this.append(data.project.html)
+
             console.log(JSON.stringify(data));
-            //var data1 = data.responseXML;
-            //var data1 = JSON.parse(data);
-            // do nothing if we don't have initial values or we got error
+
            
             var line = "";
             var line1 = "";
             var listHtmlTxt = [];
-          //line=line+"<script type='text/html' id='tpl_publishList'>\n";
-          //line=line+"<div class='page' >\n";
-          //line=line+    "<div class='hd'><h1 class='page_title'>????</h1></div>\n";
-            line = line + "<div class='weui_cells weui_cells_access'>\n";
-            line = line + " <a class='weui_cell' href='javascript:alert(13761838982);'>\n";
-            line = line + "<div class='weui_cell_bd weui_cell_primary'>\n";
-            line = line + "<p>03/30/16 7:30</p>\n";
-            line = line + "<p>丽都-张江地铁</p>\n";
-            line = line + "<p>13761838982</p>\n";
-            line = line + "</div>\n";
-            line = line + "<div class='weui_cell_ft'>途经高科路地铁站，剩余2个位子</div>\n";
-            line = line + "</a>\n";
-            line = line + "<a class='weui_cell' href='javascript:alert(\"thanks\");'>\n";
-            line = line + " <div class='weui_cell_bd weui_cell_primary'>\n";
-            line = line + "<p>03/30/16 18:25</p>\n";
-            line = line + "<p>张江高科-丽都</p>\n";
-            line = line + "<p>18917285035</p>\n";
-            line = line + " </div>\n";
-            line = line + " <div class='weui_cell_bd weui_cell_primary'>\n";
-            line = line + "<p>途经高科路地铁站，丽都华庭，还剩2个位置</p>\n";
-            line = line + " </div>\n";
-            line = line + "</a>\n";
-            line = line + "</div>  \n";
-          //line=line+     "<div class='bd spacing'>\n";
-          //line=line+        "<div class='button_sp_area'> \n";
-          //line=line+            "<a href='javascript:;' class='weui_btn weui_btn_plain_primary' id='confirm' data-id='publish' >??</a>\n";
-          //line=line+       " </div>\n";
-          //line=line+    "</div>\n";
-          //line=line+"</div>\n";
-          //line=line+"</script>\n";
 
             var carList = {
                 data: [
@@ -1013,10 +926,10 @@ function displayOrderList() {
                 ]
             };
 
-            for (var i = 0; i < carList.data.length; i++) {
-           // for (var i = 0; i < data.data.length; i++) {
-                var m = carList.data[i];
-				//var m = data.data[i];
+            //for (var i = 0; i < carList.data.length; i++) {
+            for (var i = 0; i < data.data.length; i++) {
+               // var m = carList.data[i];
+				var m = data.data[i];
                 line1 = line1 + "<div class='weui_cells weui_cells_access'>\n";
                 line1 = line1 + " <a class='weui_cell' href='javascript:goto(publish,\"lixj\",13761838982,\"丽都\",\"广兰路\",\"04/04/2016 07:30\");'>\n";
                 line1 = line1 + "<div class='weui_cell_bd weui_cell_primary'>\n";

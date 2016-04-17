@@ -12,10 +12,9 @@
 <body ontouchstart>
 <div class="container js_container"></div>
 <script type="text/html" id="tpl_publish">
-<input class="weui_input" type="weui_text" readonly="true" placeholder="请输入车主信息1" id="userId00"/>  hhhhhh
     <div class="page">
         <div class="hd"><h1 class="page_title">发布信息</h1></div>
-<input class="weui_input" type="weui_text" placeholder="请输入车主信息1" id="userId"/>  hhhhhh
+<input type=hidden class="weui_input" type="weui_text" placeholder="请输入车主信息" id="userId"/>  
         <div class="weui_cells weui_cells_form">
 		
             <div class="weui_cell">
@@ -171,7 +170,7 @@
     </div>
 </script>
 <script type="text/html" id="tpl_search">
-<hidden class="weui_input" type="weui_text" readonly="true" placeholder="请输入车主信息2" id="userId"/>
+<hidden class="weui_input" type="weui_text" readonly="true" placeholder="请输入车主信息2" id="userIdZhaoChe"/>
     <div class="page">
         <div class="hd">
             <h1 class="page_title">找车</h1>
@@ -183,17 +182,17 @@
                     出发地
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <select class="weui_select" name="start2" id="startPoint">
-                        <option value="1">泥城</option>
-                        <option value="2">丽都</option>
-                        <option value="3">城邦</option>
-                        <option value="3">东港</option>
-                        <option value="1">陆家嘴</option>
-                        <option value="2">龙阳路</option>
-                        <option value="3">张江高科</option>
-                        <option value="3">金科路</option>
-                        <option value="3">广兰路</option>
-                        <option value="3">集电港</option>
+                    <select class="weui_select" name="start2" id="startPointZhaoChe">
+                        <option value="泥城">泥城</option>
+                        <option value="丽都">丽都</option>
+                        <option value="城邦">城邦</option>
+                        <option value="东港">东港</option>
+                        <option value="陆家嘴">陆家嘴</option>
+                        <option value="龙阳路">龙阳路</option>
+                        <option value="张江高科">张江高科</option>
+                        <option value="金科路">金科路</option>
+                        <option value="广兰路">广兰路</option>
+                        <option value="集电港">集电港</option>
                     </select>
                 </div>
             </div>
@@ -202,35 +201,35 @@
                     终点站
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <select class="weui_select" name="end2" id="destination">
-                        <option value="1">泥城</option>
-                        <option value="2">丽都</option>
-                        <option value="3">城邦</option>
-                        <option value="3">东港</option>
-                        <option value="1">陆家嘴</option>
-                        <option value="2">龙阳路</option>
-                        <option value="3">张江高科</option>
-                        <option value="3">金科路</option>
-                        <option value="3">广兰路</option>
-                        <option value="3">集电港</option>
+                    <select class="weui_select" name="end2" id="destinationZhaoChe">
+                        <option value="泥城">泥城</option>
+                        <option value="丽都">丽都</option>
+                        <option value="城邦">城邦</option>
+                        <option value="东港">东港</option>
+                        <option value="陆家嘴">陆家嘴</option>
+                        <option value="龙阳路">龙阳路</option>
+                        <option value="张江高科">张江高科</option>
+                        <option value="金科路">金科路</option>
+                        <option value="广兰路">广兰路</option>
+                        <option value="集电港">集电港</option>
                     </select>
                 </div>
             </div>
             <div class="weui_cell">
                 <div class="weui_cell_hd">发车时间</div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="datetime-local" value="" placeholder="" id="time"/>
+                    <input class="weui_input" type="datetime-local" value="" placeholder="" id="timeZhaoChe"/>
                 </div>
             </div>
             <div class="weui_cell">
                 <div class="weui_cell_hd"><label class="weui_label">电话</label></div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入电话信息" id="phone"/>
+                    <input class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入电话信息" id="phoneZhaoChe"/>
                 </div>
             </div>
 			<div class="weui_cell">
                 <div class="weui_cell_bd weui_cell_primary">
-                    <textarea class="weui_textarea" placeholder="请输入详细信息" rows="3" id="detail"></textarea>
+                    <textarea class="weui_textarea" placeholder="请输入详细信息" rows="3" id="detailZhaoChe"></textarea>
 
                     <div class="weui_textarea_counter"><span>0</span>/200</div>
                 </div>
@@ -283,7 +282,7 @@
 </script>
 
 <script type="text/html" id="tpl_orderList">
-<hidden class="weui_input" type="weui_text" readonly="true" placeholder="请输入车主信息3" id="userId"/>
+<hidden class="weui_input" type="weui_text" readonly="true" placeholder="请输入车主信息3" id="userIdMine"/>
     <div class="page">
         <div class="hd">
             <h1 class="page_title">我的订单</h1>
