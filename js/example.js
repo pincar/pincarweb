@@ -606,6 +606,10 @@ function displayPublishList() {
     if ($loadingToast.css('display') != 'none') {
         return;
     }
+    var valid = validateInput('ZhaoRen');
+    if(!valid) {
+        return;
+    }
     $loadingToast.show();
 
     var urlServer = 'http://120.25.196.109/zhaoRen/123'+$("#userId")[0].value;
@@ -778,23 +782,8 @@ function displaySearchList() {
     if ($loadingToast.css('display') != 'none') {
         return;
     }
-    var valid = true;
-    $("#formZhaoChe .ifield.imandatory").each(function(index, item) {
-        var itemId = item.id;
-        if(!item.value) {
-            $(item).addClass("err_field");
-            valid = false;
-        }
-    });
+    var valid = validateInput('ZhaoChe');
     if(!valid) {
-        var $tooltips = $('#emptyFieldZhaoChe');
-        if ($tooltips.css('display') != 'none') {
-            return;
-        }
-        $tooltips.show();
-        setTimeout(function () {
-            $tooltips.hide();
-        }, 2000);
         return;
     }
     $loadingToast.show();
@@ -1034,3 +1023,24 @@ $(document).on('ajaxBeforeSend', function (e, xhr, options) {
    // console.log('after ajax');
     //$loadingToast.hide();
 //})
+function validateInput(pageName) {
+    var valid = true;
+
+    $("#form"+pageName+" .ifield.imandatory").each(function(index, item) {
+        var itemId = item.id;
+        if(!item.value) {
+            $(item).addClass("err_field");
+            valid = false;
+        }
+    });
+    if(!valid) {
+        var $tooltips = $('#emptyField'+pageName);
+        if ($tooltips.css('display') == 'none') {
+            $tooltips.show();
+            setTimeout(function () {
+                $tooltips.hide();
+            }, 2000);
+        }
+    }
+    return valid;
+}
