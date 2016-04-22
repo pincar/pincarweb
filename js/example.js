@@ -1026,7 +1026,7 @@ $(document).on('ajaxBeforeSend', function (e, xhr, options) {
 function validateInput(pageName) {
     var valid = true;
 
-    $("#form"+pageName+" .ifield.imandatory").each(function(index, item) {
+    $("#form"+pageName+" .irequired").each(function(index, item) {
         var itemId = item.id;
         if(!item.value) {
             $(item).addClass("err_field");

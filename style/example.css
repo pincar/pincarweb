@@ -42,6 +42,6 @@ body,html{height:100%;-webkit-tap-highlight-color:transparent}
   background-color: rgba(247, 150, 148, 0.81);
 }
 
-.mustLabel {
+.requiredLabel {
     color:red;
 }
