@@ -14,21 +14,19 @@
 <script type="text/html" id="tpl_publish">
     <div class="page">
         <div class="hd"><h1 class="page_title">发布信息</h1></div>
-<input type=hidden class="weui_input" type="weui_text" placeholder="请输入车主信息" id="userId"/>  
-        <div class="weui_cells weui_cells_form">
-		
+        <div class="weui_cells weui_cells_form" id="formZhaoRen">
+            <input type=hidden class="weui_input ifield" type="weui_text" placeholder="请输入车主信息" id="userId"/>
+
             <div class="weui_cell">
-                <div class="weui_cell_hd"><label class="weui_label">电话</label></div>
+                <div class="weui_cell_hd"><label class="weui_label"><span class="mustLabel">*</span>电话</label></div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入电话信息" id="phone"/>
+                    <input class="weui_input ifield imandatory" type="number" pattern="[0-9]*" placeholder="请输入电话信息" id="phone"/>
                 </div>
             </div>
             <div class="weui_cell weui_cell_select weui_select_after">
-                <div class="weui_cell_hd">
-                                           出发地
-                </div>
+                <div class="weui_cell_hd"><span class="mustLabel">*</span>出发地</div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <select class="weui_select" name="start" id="startPoint">
+                    <select class="weui_select ifield imandatory" name="start" id="startPoint">
                         <option value="泥城">泥城</option>
                         <option value="丽都">丽都</option>
                         <option value="城邦">城邦</option>
@@ -43,11 +41,10 @@
                 </div>
             </div>
             <div class="weui_cell weui_cell_select weui_select_after">
-                <div class="weui_cell_hd">
-                                      终点站
+                <div class="weui_cell_hd"><span class="mustLabel">*</span>终点站
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <select class="weui_select" name="end" id="destination">
+                    <select class="weui_select ifield imandatory" name="end" id="destination">
                         <option value="泥城">泥城</option>
                         <option value="丽都">丽都</option>
                         <option value="城邦">城邦</option>
@@ -62,33 +59,33 @@
                 </div>
             </div>
             <div class="weui_cell">
-                <div class="weui_cell_hd">发车时间</div>
+                <div class="weui_cell_hd"><span class="mustLabel">*</span>发车时间</div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="datetime-local" value="" placeholder="" id="time"/>
+                    <input class="weui_input ifield imandatory" type="datetime-local" value="" placeholder="" id="time"/>
                 </div>
             </div>
             <div class="weui_cell">
                 <div class="weui_cell_hd"><label class="weui_label">车型：</label></div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="weui_text" placeholder="请输入车型信息" id="type"/>
+                    <input class="weui_input ifield" type="weui_text" placeholder="请输入车型信息" id="type"/>
                 </div>
             </div>
             <div class="weui_cell">
                 <div class="weui_cell_hd"><label class="weui_label">车牌：</label></div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="weui_text" placeholder="请输入车牌信息" id="card"/>
+                    <input class="weui_input ifield" type="weui_text" placeholder="请输入车牌信息" id="card"/>
                 </div>
             </div>            
             <div class="weui_cell">
                 <div class="weui_cell_hd"><label class="weui_label">座位数</label></div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入座位数信息" id="seat"/>
+                    <input class="weui_input ifield" type="number" pattern="[0-9]*" placeholder="请输入座位数信息" id="seat"/>
                 </div>
             </div>
             
             <div class="weui_cell">
                 <div class="weui_cell_bd weui_cell_primary">
-                    <textarea class="weui_textarea" placeholder="请输入详细信息" rows="3" id="detail"></textarea>
+                    <textarea class="weui_textarea ifield" placeholder="请输入详细信息" rows="3" id="detail"></textarea>
 
                     <div class="weui_textarea_counter"><span>0</span>/200</div>
                 </div>
@@ -137,52 +134,24 @@
         </div>
 
         <div class="weui_toptips weui_warn js_tooltips">数据传输错误，请谅解</div>
+        <div class="weui_toptips weui_warn" id="emptyFieldZhaoRen">请输入必要信息</div>
     </div>
 </script>
-<script type="text/html" id="tpl_publishList">
-    <div class="page">
-        <div class="hd">
-            <h1 class="page_title">发布成功</h1>
-        </div>
-        <div class="weui_cells weui_cells_access">
-            <a class="weui_cell" href="javascript:;">
-                <div class="weui_cell_bd weui_cell_primary">
-                    <p>7:30，丽都到张江地铁，13761838982</p>
-                </div>
-                <div class="weui_cell_ft">有4个位子，要求女性</div>
-            </a>
-            <a class="weui_cell" href="javascript:;">
-                <div class="weui_cell_bd weui_cell_primary">
-                    <p>18:00，张江高科到丽都，13761838982</p>
-                </div>
-                <div class="weui_cell_ft">有4个位子，要求女性</div>
-            </a>
-        </div>
 
-        <div class="bd spacing">
-
-            <div class="button_sp_area">
-
-                <a href="javascript:;" class="weui_btn weui_btn_plain_primary" id="confirm" data-id="publish">确认</a>
-
-            </div>
-        </div>
-    </div>
-</script>
 <script type="text/html" id="tpl_search">
-<hidden class="weui_input" type="weui_text" readonly="true" placeholder="请输入车主信息2" id="userIdZhaoChe"/>
+
     <div class="page">
         <div class="hd">
             <h1 class="page_title">找车</h1>
         </div>
-        <div class="weui_cells weui_cells_form">
-
+        <div class="weui_cells weui_cells_form" id="formZhaoChe">
+            <hidden class="weui_input ifield" type="weui_text" readonly="true" placeholder="请输入车主信息2" id="userIdZhaoChe"/>
             <div class="weui_cell weui_cell_select weui_select_after">
                 <div class="weui_cell_hd">
-                    出发地
+                    <span class="mustLabel">*</span>出发地
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <select class="weui_select" name="start2" id="startPointZhaoChe">
+                    <select class="weui_select ifield imandatory" name="start2" id="startPointZhaoChe">
                         <option value="泥城">泥城</option>
                         <option value="丽都">丽都</option>
                         <option value="城邦">城邦</option>
@@ -198,10 +167,10 @@
             </div>
             <div class="weui_cell weui_cell_select weui_select_after">
                 <div class="weui_cell_hd">
-                    终点站
+                    <span class="mustLabel">*</span>终点站
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <select class="weui_select" name="end2" id="destinationZhaoChe">
+                    <select class="weui_select ifield imandatory" name="end2" id="destinationZhaoChe">
                         <option value="泥城">泥城</option>
                         <option value="丽都">丽都</option>
                         <option value="城邦">城邦</option>
@@ -216,20 +185,20 @@
                 </div>
             </div>
             <div class="weui_cell">
-                <div class="weui_cell_hd">发车时间</div>
+                <div class="weui_cell_hd"><span class="mustLabel">*</span>发车时间</div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="datetime-local" value="" placeholder="" id="timeZhaoChe"/>
+                    <input class="weui_input ifield imandatory" type="datetime-local" value="" placeholder="" id="timeZhaoChe"/>
                 </div>
             </div>
             <div class="weui_cell">
-                <div class="weui_cell_hd"><label class="weui_label">电话</label></div>
+                <div class="weui_cell_hd"><label class="weui_label"><span class="mustLabel">*</span>电话</label></div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入电话信息" id="phoneZhaoChe"/>
+                    <input class="weui_input ifield imandatory" type="number" pattern="[0-9]*" placeholder="请输入电话信息" id="phoneZhaoChe"/>
                 </div>
             </div>
 			<div class="weui_cell">
                 <div class="weui_cell_bd weui_cell_primary">
-                    <textarea class="weui_textarea" placeholder="请输入详细信息" rows="3" id="detailZhaoChe"></textarea>
+                    <textarea class="weui_textarea ifield" placeholder="请输入详细信息" rows="3" id="detailZhaoChe"></textarea>
 
                     <div class="weui_textarea_counter"><span>0</span>/200</div>
                 </div>
@@ -240,12 +209,12 @@
 
             <div class="button_sp_area">
 
-                <a href="javascript:;" class="weui_btn weui_btn_plain_primary" id="confirm" data-id="searchList">查找</a>
+                <a href="javascript:;" class="weui_btn weui_btn_plain_primary" id="confirmZhaoChe" data-id="searchList">查找</a>
 
             </div>
         </div>
 		<div id="searchListResult"></div>
-        <div id="toast" style="display: none;">
+        <div id="toastZhaoChe" style="display: none;">
             <div class="weui_mask_transparent"></div>
             <div class="weui_toast">
                 <i class="weui_icon_toast"></i>
@@ -256,7 +225,7 @@
         <!--end toast-->
 
         <!-- loading toast -->
-        <div id="loadingToast" class="weui_loading_toast" style="display:none;">
+        <div id="loadingToastZhaoChe" class="weui_loading_toast" style="display:none;">
             <div class="weui_mask_transparent"></div>
             <div class="weui_toast">
                 <div class="weui_loading">
@@ -278,6 +247,7 @@
         </div>
 
         <div class="weui_toptips weui_warn js_tooltips">数据传输错误，请谅解</div>
+        <div class="weui_toptips weui_warn" id="emptyFieldZhaoChe">请输入必要信息</div>
     </div>
 </script>
 
@@ -289,7 +259,7 @@
         </div>
 
 		<div id="orderListResult"></div>
-        <div id="toast" style="display: none;">
+        <div id="toastOrder" style="display: none;">
             <div class="weui_mask_transparent"></div>
             <div class="weui_toast">
                 <i class="weui_icon_toast"></i>
@@ -300,7 +270,7 @@
         <!--end toast-->
 
         <!-- loading toast -->
-        <div id="loadingToast" class="weui_loading_toast" style="display:none;">
+        <div id="loadingToastOrder" class="weui_loading_toast" style="display:none;">
             <div class="weui_mask_transparent"></div>
             <div class="weui_toast">
                 <div class="weui_loading">
@@ -329,6 +299,7 @@
         <div class="hd">
             <h1 class="page_title">欢迎使用拼车公众号</h1>
         </div>
+    </div>
 </script>
 <script src="js/zepto.js"></script>
 <script src="js/example.js"></script>

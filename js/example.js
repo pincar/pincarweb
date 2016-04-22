@@ -400,7 +400,15 @@ var publish = {
 
                 displayPublishList();
             }
-        }
+        },
+        '#formZhaoRen .ifield':{
+                click: function () {
+                    var item = $(this);
+                    if(item && item.hasClass('err_field')) {
+                        item.removeClass('err_field');
+                    }
+                }
+            }
     }
 };
 
@@ -409,11 +417,21 @@ var search = {
     url: '#search',
     template: '#tpl_search',
     events: {
-        '#confirm': {
+        '#confirmZhaoChe': {
             click: function () {
                 //var id = $(this).data('id');
                 //pageManager.go(id);
 				displaySearchList();
+            }
+        },
+        '#formZhaoChe .ifield':{
+            click: function () {
+                //var id = $(this).data('id');
+                //pageManager.go(id);
+                var item = $(this);
+                if(item && item.hasClass('err_field')) {
+                    item.removeClass('err_field');
+                }
             }
         }
     }
@@ -424,12 +442,12 @@ var orderList = {
     url: '#orderList',
     template: '#tpl_orderList',
     events: {
-        '#confirm': {
-            click: function () {
-                var id = $(this).data('id');
-                pageManager.go(id);
-            }
-        }
+//        '#confirm': {
+//            click: function () {
+//                var id = $(this).data('id');
+//                pageManager.go(id);
+//            }
+//        }
     }
 };
 
@@ -451,47 +469,27 @@ var pincar = {
 function initial(page){
 
 	if (pincar.webChatMenuId == 'zhaoRen') {
-
-    if($("#userId")[0]!=undefined)
-    $("#userId")[0].value = pincar.webChatUserId;
-	if($("#type")[0]!=undefined)
-    $("#type")[0].value = pincar.webChatType;
-	if($("#card")[0]!=undefined)
-    $("#card")[0].value = pincar.webChatCard;
-	if($("#phone")[0]!=undefined)
-    $("#phone")[0].value = pincar.webChatPhone;
-	if($("#seat")[0]!=undefined)
-    $("#seat")[0].value = pincar.webChatSeat;
-	if($("#startPoint")[0]!=undefined)
-    $("#startPoint")[0].value = pincar.webChatStartPoint;
-	if($("#destination")[0]!=undefined)
-    $("#destination")[0].value = pincar.webChatDestination;
-	if($("#detail")[0]!=undefined)
-    $("#detail")[0].value = pincar.webChatDetail;
-	if($("#time")[0]!=undefined)
-    $("#time")[0].value = pincar.webChatTime;
+        $("#formZhaoRen .ifield").each(function(index, item) {
+            var itemId = item.id;
+            if(itemId) {
+                var pincarAttr = "webChat"+itemId.substring(0,1).toUpperCase()+itemId.substring(1,itemId.length);
+                if(pincarAttr in pincar && pincar[pincarAttr]) {
+                    item.value=pincar[pincarAttr];
+                }
+            }
+        });
     }
     else if (pincar.webChatMenuId == 'zhaoChe') {
 
-    if($("#userIdZhaoChe")[0]!=undefined)
-    $("#userIdZhaoChe")[0].value = pincar.webChatUserId;
-	if($("#typeZhaoChe")[0]!=undefined)
-    $("#typeZhaoChe")[0].value = pincar.webChatType;
-	if($("#cardZhaoChe")[0]!=undefined)
-    $("#cardZhaoChe")[0].value = pincar.webChatCard;
-	if($("#phoneZhaoChe")[0]!=undefined)
-    $("#phoneZhaoChe")[0].value = pincar.webChatPhone;
-	if($("#seatZhaoChe")[0]!=undefined)
-    $("#seatZhaoChe")[0].value = pincar.webChatSeat;
-	if($("#startPointZhaoChe")[0]!=undefined)
-    $("#startPointZhaoChe")[0].value = pincar.webChatStartPoint;
-	if($("#destinationZhaoChe")[0]!=undefined)
-    $("#destinationZhaoChe")[0].value = pincar.webChatDestination;
-	if($("#detailZhaoChe")[0]!=undefined)
-    $("#detailZhaoChe")[0].value = pincar.webChatDetail;
-	if($("#timeZhaoChe")[0]!=undefined)
-    $("#timeZhaoChe")[0].value = pincar.webChatTime;
-
+        $("#formZhaoChe .ifield").each(function(index, item) {
+            var itemId = item.id;
+            if(itemId) {
+                var pincarAttr = "webChat"+itemId.substring(0,1).toUpperCase()+itemId.substring(1,itemId.length-7);
+                if(pincarAttr in pincar && pincar[pincarAttr]) {
+                    item.value=pincar[pincarAttr];
+                }
+            }
+        });
     } else if (pincar.webChatMenuId == 'mine') {
 	
     if($("#userIdMine")[0]!=undefined)
@@ -752,11 +750,11 @@ function displayPublishList() {
 
             $("#publishListResult").html(listHtmlTxt.join("\n"));
 			$("#confirm")[0].scrollIntoView();
-           // $loadingToast.hide();
+
 
         },
         error: function (xhr, type) {
-            //$loadingToast.hide();
+
             console.log('error');
             var $tooltips = $('.js_tooltips');
             if ($tooltips.css('display') != 'none') {
@@ -776,8 +774,27 @@ function displayPublishList() {
 }
 function displaySearchList() {
 
-    var $loadingToast = $('#loadingToast');
+    var $loadingToast = $('#loadingToastZhaoChe');
     if ($loadingToast.css('display') != 'none') {
+        return;
+    }
+    var valid = true;
+    $("#formZhaoChe .ifield.imandatory").each(function(index, item) {
+        var itemId = item.id;
+        if(!item.value) {
+            $(item).addClass("err_field");
+            valid = false;
+        }
+    });
+    if(!valid) {
+        var $tooltips = $('#emptyFieldZhaoChe');
+        if ($tooltips.css('display') != 'none') {
+            return;
+        }
+        $tooltips.show();
+        setTimeout(function () {
+            $tooltips.hide();
+        }, 2000);
         return;
     }
     $loadingToast.show();
@@ -848,11 +865,12 @@ function displaySearchList() {
         },
 		complete: function(){
 			console.log('adjax done');
-			$("#loadingToast").hide();
+			$("#loadingToastZhaoChe").hide();
 		}
     })
 
 }
+
 function displayOrderList() {
 
     var urlServer = 'http://120.25.196.109/zhaoRen/'+pincar.webChatUserId;
@@ -874,7 +892,7 @@ function displayOrderList() {
 
             console.log(JSON.stringify(data));
 
-           
+
             var line = "";
             var line1 = "";
             var listHtmlTxt = [];
@@ -955,7 +973,7 @@ function displayOrderList() {
         error: function (xhr, type) {
             //$loadingToast.hide();
             console.log('error');
-            
+
         },
 		complete: function(){
 			console.log('adjax done');

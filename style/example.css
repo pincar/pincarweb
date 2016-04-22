@@ -37,3 +37,11 @@ body,html{height:100%;-webkit-tap-highlight-color:transparent}
 @keyframes b{0%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1}to{-webkit-transform:translate3d(100%,0,0);transform:translate3d(100%,0,0);opacity:0}}
 .page.slideIn{-webkit-animation:a .2s forwards;animation:a .2s forwards}
 .page.slideOut{-webkit-animation:b .2s forwards;animation:b .2s forwards}
+
+.err_field {
+  background-color: rgba(247, 150, 148, 0.81);
+}
+
+.mustLabel {
+    color:red;
+}

@@ -19,12 +19,13 @@ $(function () {
             var self = this;
 
             $(window).on('hashchange', function () {
-                var state = history.state || {};				 
+                var state = history.state || {};
+                console.log("location.hash is: "+location.hash);
                 var url = location.hash.indexOf('#') === 0 ? location.hash : '#';
                 var page = self._find('url', url) || self._defaultPage;
                 if (state._pageIndex <= self._pageIndex || self._findInStack(url)) {
 					console.log('#####back <===to url: '+url);
-                    self._back(page);//todo
+                    self._back(page);
                 } else {
 					console.log('#####go===> to url: '+url);
                     self._go(page);
@@ -51,6 +52,7 @@ $(function () {
             if (!config) {
                 return;
             }
+            console.log("Go to: "+config.url);
             location.hash = config.url;
         },
         _go: function (config) {
@@ -495,7 +497,7 @@ var pincar ={webchatUserid:'',
 		findCarServReq.time=$("#zhaoche_time").val();
 		//var findCarUrl= "http://120.25.196.109/zhaoChe/"+this.webchatUserid;
 		//var findCarUrl= "/zhaoChe/"+this.webchatUserid;
-		var findCarUrl = "http://192.168.31.151/zhaoChe/"+this.webchatUserid;
+		var findCarUrl = "http://"+pincar.serverHome+"/zhaoChe/"+this.webchatUserid;
 		$.ajax({
 			url:findCarUrl,
 			data:findCarServReq,
@@ -503,15 +505,15 @@ var pincar ={webchatUserid:'',
 			dataType:"json",
 			success: pincar.findCarSuccess,
 			complete: function(){
-				console.log('findCar done');
+//				console.log('findCar done');
 				$("#loadingToast").hide();
 			}
 		});
 	  return this;
   },
   findCarSuccess: function(msg, status, xhr) {
-		console.log("findCar success");	
-		console.log(JSON.stringify(msg));
+//		console.log("findCar success");
+//		console.log(JSON.stringify(msg));
 		/*
 		res result://success ,http code:200
     {
@@ -581,7 +583,7 @@ var pincar ={webchatUserid:'',
 		data:pubCarServReq,
 		success: pincar.pubSuccess
 	});*/
-	var pubUrl= "http://120.25.196.109/zhaoRen/"+this.webchatUserid;
+	var pubUrl= "http://"+pincar.serverHome+"/zhaoRen/"+this.webchatUserid;
 	$.ajax({
 		url:pubUrl,
 		data:pubCarServReq,
@@ -589,13 +591,13 @@ var pincar ={webchatUserid:'',
 		dataType:"json",
 		success: pincar.pubSuccess,
 		complete: function(){
-			console.log('adjax done');
+//			console.log('adjax done');
 			$("#pubLoadingToast").hide();
 		}
 	});
 	return this;
 }, pubSuccess : function (msg, status, xhr) {
-		console.log("pub success");	
+//		console.log("pub success");
 		/*{data : [
 				{
 					userId : 111,
@@ -673,11 +675,12 @@ $(function (){
 	var args = urlArgs();
     if('userid' in args){
 		pincar.webchatUserid=args.userid;
-		console.log('you are '+pincar.webchatUserid);	
+//		console.log('you are '+pincar.webchatUserid);
 	}	
 	//pincar.webchatUserid=('userid' in args) && args.userid;
 	//console.log('you are '+pincar.webchatUserid);	
 	pincar.initApp();
+	pincar.serverHome="127.0.0.1";
 	
 	//pageManager.setDefault('publish')//publish
 	//.init();
