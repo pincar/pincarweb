@@ -613,7 +613,7 @@ function displayPublishList() {
     $loadingToast.show();
 
     var urlServer = 'http://120.25.196.109/zhaoRen/123'+$("#userId")[0].value;
-    var url = 'http://192.168.31.151/zhaoRen/'+$("#userId")[0].value;
+    var url = 'http://192.168.31.151:4000/zhaoRen/'+$("#userId")[0].value;
     var urlLocalTomcat='http://192.168.30.148:8080/WebRoot/servlet/PinCarServlet';
     //var time = '04/04/2016 07:30';
     var data = {
@@ -789,7 +789,7 @@ function displaySearchList() {
     $loadingToast.show();
 
     var urlServer = 'http://120.25.196.109/zhaoRen/'+$("#userIdZhaoChe")[0].value;
-    var url = 'http://192.168.31.151/zhaoChe/'+$("#userIdZhaoChe")[0].value;
+    var url = 'http://192.168.31.151:4000/zhaoChe/'+$("#userIdZhaoChe")[0].value;
     var urlLocalTomcat='http://192.168.30.148:8080/WebRoot/servlet/PinCarServlet';
     //var time = '04/04/2016 07:30';
     var data = {
@@ -838,7 +838,7 @@ function displaySearchList() {
 
 
             $("#searchListResult").html(listHtmlTxt.join("\n"));
-			$("#confirm")[0].scrollIntoView();
+			$("#confirmZhaoChe")[0].scrollIntoView();
 
         },
         error: function (xhr, type) {
