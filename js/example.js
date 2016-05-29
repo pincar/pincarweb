@@ -564,13 +564,13 @@ $(function () {
     args = urlArgs();
     pincar.webChatMenuId = args.menuId;
     pincar.webChatUserId = args.userId;
-    pincar.webChatType = args.type;
-    pincar.webChatCard = args.card;
-    pincar.webChatPhone = args.phone;
-    pincar.webChatSeat = args.seat;
+    pincar.webChatType = args.type || '';
+    pincar.webChatCard = args.card || '';
+    pincar.webChatPhone = args.phone || '';
+    pincar.webChatSeat = args.seat || '';
     pincar.webChatStartPoint = args.startPoint;
     pincar.webChatDestination = args.destination;
-    pincar.webChatDetail = args.detail;
+    pincar.webChatDetail = args.detail || '';
     pincar.webChatTime = args.time;
     pageManager.push(publish)
         .push(search)
@@ -613,7 +613,7 @@ function displayPublishList() {
     $loadingToast.show();
 
     var urlServer = 'http://120.25.196.109/zhaoRen/123'+$("#userId")[0].value;
-    var url = 'http://192.168.31.151:4000/zhaoRen/'+$("#userId")[0].value;
+    var url = 'http://www.52pincar.com/zhaoRen/'+$("#userId")[0].value;
     var urlLocalTomcat='http://192.168.30.148:8080/WebRoot/servlet/PinCarServlet';
     //var time = '04/04/2016 07:30';
     var data = {
@@ -789,7 +789,7 @@ function displaySearchList() {
     $loadingToast.show();
 
     var urlServer = 'http://120.25.196.109/zhaoRen/'+$("#userIdZhaoChe")[0].value;
-    var url = 'http://192.168.31.151:4000/zhaoChe/'+$("#userIdZhaoChe")[0].value;
+    var url = 'http://www.52pincar.com/zhaoChe/'+$("#userIdZhaoChe")[0].value;
     var urlLocalTomcat='http://192.168.30.148:8080/WebRoot/servlet/PinCarServlet';
     //var time = '04/04/2016 07:30';
     var data = {
@@ -863,7 +863,7 @@ function displaySearchList() {
 function displayOrderList() {
 
     var urlServer = 'http://120.25.196.109/zhaoRen/'+pincar.webChatUserId;
-    var url = 'http://192.168.31.151/zhaoChe/'+pincar.webChatUserId;
+    var url = 'http://www.52pincar.com/'+pincar.webChatUserId;
     var urlLocalTomcat='http://192.168.30.148:8080/WebRoot/servlet/PinCarServlet';
     //var time = '04/04/2016 07:30';
     var data = {
