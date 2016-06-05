@@ -469,6 +469,7 @@ var orderList = {
 var pincar = {
     webChatMenuId: '',
     webChatUserId: '',
+    webChatNickName: '',
     webChatType: '',
     webChatCard: '',
     webChatPhone: '',
@@ -577,6 +578,7 @@ $(function () {
     args = urlArgs();
     pincar.webChatMenuId = args.menuId;
     pincar.webChatUserId = args.userId;
+    pincar.webChatNickName = args.nickName;
     pincar.webChatType = args.type || '';
     pincar.webChatCard = args.card || '';
     pincar.webChatPhone = args.phone || '';
