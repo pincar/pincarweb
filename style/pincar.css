@@ -23,3 +23,23 @@
 .weui_cells2 {
 	overflow: auto;  
 }
+
+
+.order_item ul li {
+  display:inline-block;¬
+}
+
+.order_item ul li:hover {
+    border : solid 1px ;
+    background-color:#f9efdf; 
+¬
+}
+
+.order_item .label {
+  font-size: 0.7em;
+}
+
+.order_item .title {
+  font-size: 1.2em;
+  text-align:center;
+}

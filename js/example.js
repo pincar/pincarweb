@@ -4,6 +4,19 @@
  */
 
 //$(function () {
+var Env = {
+    cur : 'dev',
+    dev : 1,
+    product : 0
+};
+var config = {
+    dev : {
+        domain : "localhost:4000"
+    },
+    product : {
+        domain : "www.52pincar.com"
+    }
+}
 var pageManager = {
     pm: 'abc',
     $container: $('.js_container'),
@@ -614,10 +627,14 @@ function displayPublishList() {
 
     var urlServer = 'http://120.25.196.109/zhaoRen/123'+$("#userId")[0].value;
     var url = 'http://www.52pincar.com/zhaoRen/'+$("#userId")[0].value;
+    if(Env.dev == 1){
+        url = 'http://localhost:4000/zhaoRen/'+$("#userId")[0].value;
+    }
     var urlLocalTomcat='http://192.168.30.148:8080/WebRoot/servlet/PinCarServlet';
     //var time = '04/04/2016 07:30';
     var data = {
         userId: $("#userId")[0].value,
+        nickName : $("#nickName")[0].value,
         type: $("#type")[0].value,
         card: $("#card")[0].value,
         phone: $("#phone")[0].value,
@@ -657,7 +674,7 @@ function displayPublishList() {
           //line=line+"<div class='page' >\n";
           //line=line+    "<div class='hd'><h1 class='page_title'>????</h1></div>\n";
             line = line + "<div class='weui_cells weui_cells_access'>\n";
-            line = line + " <a class='weui_cell' href='javascript:alert(13761838982);'>\n";
+            line = line + " <a class='weui_cell'>\n";
             line = line + "<div class='weui_cell_bd weui_cell_primary'>\n";
             line = line + "<p>03/30/16 7:30</p>\n";
             line = line + "<p>丽都-张江地铁</p>\n";
@@ -736,7 +753,7 @@ function displayPublishList() {
                 //var m = carList.data[i];
 				var m = data.data[i];
                 line1 = line1 + "<div class='weui_cells weui_cells_access'>\n";
-                line1 = line1 + " <a class='weui_cell' href='javascript:alert(13761838982);'>\n";
+                line1 = line1 + " <a class='weui_cell' href='tel:" + m.phone + "'>\n";
                 line1 = line1 + "<div class='weui_cell_bd weui_cell_primary'>\n";
                 line1 = line1 + "<p>" +"从"+ " " + m.startPoint + " 到 " + m.destination + " ";
                 line1 = line1 + m.time + " " + m.phone + " ";
@@ -790,10 +807,14 @@ function displaySearchList() {
 
     var urlServer = 'http://120.25.196.109/zhaoRen/'+$("#userIdZhaoChe")[0].value;
     var url = 'http://www.52pincar.com/zhaoChe/'+$("#userIdZhaoChe")[0].value;
+    if(Env.dev == 1){
+        url = 'http://localhost:4000/zhaoRen/'+$("#userId")[0].value;
+    }
     var urlLocalTomcat='http://192.168.30.148:8080/WebRoot/servlet/PinCarServlet';
     //var time = '04/04/2016 07:30';
     var data = {
         userId: $("#userIdZhaoChe")[0].value,
+        nickName : $("#nickNameZhaoChe")[0].value,
         phone: $("#phoneZhaoChe")[0].value,
         startPoint: $("#startPointZhaoChe")[0].value,
         destination: $("#destinationZhaoChe")[0].value,
@@ -821,7 +842,7 @@ function displaySearchList() {
                 
 				var m = data.data[i];
                 line1 = line1 + "<div class='weui_cells weui_cells_access'>\n";
-                line1 = line1 + " <a class='weui_cell' href='javascript:alert(13761838982);'>\n";
+                line1 = line1 + " <a class='weui_cell' href='tel:" + m.phone +"'>\n";
                 line1 = line1 + "<div class='weui_cell_bd weui_cell_primary'>\n";
                 line1 = line1 + "<p>" +"从"+ " " + m.startPoint + " 到 " + m.destination + " ";
                 line1 = line1 + m.time + " " + m.phone + " ";
@@ -970,6 +991,15 @@ function displayOrderList() {
 		}
     })
 
+}
+
+function findOrderByPhone(phone,type){
+    return ;
+    if(type == 1)
+        window.location.href = "http://"+config[Env.cur].domain+"/zhaoRen?openId=" + phone;
+    if(type == 2){
+       window.location.href = "http://"+config[Env.cur].domain+"/zhaoChe?openId=" + phone; 
+    }
 }
 //-----------------------------------------------------------------------------
 //Create a object array from XML doc, the attribute name is the same as
