@@ -579,7 +579,7 @@ $(function () {
     pincar.webChatMenuId = args.menuId;
     pincar.webChatUserId = args.userId;
     pincar.webChatNickName = args.nickName;
-    pincar.webChatType = args.type || '';
+    pincar.webChatCarType = args.carType || '';
     pincar.webChatCard = args.card || '';
     pincar.webChatPhone = args.phone || '';
     pincar.webChatSeat = args.seat || '';
@@ -637,7 +637,7 @@ function displayPublishList() {
     var data = {
         userId: $("#userId")[0].value,
         nickName : $("#nickName")[0].value,
-        type: $("#type")[0].value,
+        carType: $("#carType")[0].value,
         card: $("#card")[0].value,
         phone: $("#phone")[0].value,
         seat: $("#seat")[0].value,
@@ -810,7 +810,7 @@ function displaySearchList() {
     var urlServer = 'http://120.25.196.109/zhaoRen/'+$("#userIdZhaoChe")[0].value;
     var url = 'http://www.52pincar.com/zhaoChe/'+$("#userIdZhaoChe")[0].value;
     if(Env.dev == 1){
-        url = 'http://localhost:4000/zhaoRen/'+$("#userId")[0].value;
+        url = 'http://localhost:4000/zhaoChe/'+$("#userIdZhaoChe")[0].value;
     }
     var urlLocalTomcat='http://192.168.30.148:8080/WebRoot/servlet/PinCarServlet';
     //var time = '04/04/2016 07:30';
