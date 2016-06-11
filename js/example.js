@@ -587,6 +587,7 @@ $(function () {
     pincar.webChatDestination = args.destination;
     pincar.webChatDetail = args.detail || '';
     pincar.webChatTime = args.time;
+    pincar.webChatId = args.id;
     pageManager.push(publish)
         .push(search)
         .push(orderList)

@@ -26,7 +26,34 @@
 
 
 .order_item ul li {
-  display:inline-block;¬
+  display:inline-block;
+  border : solid 1px ;
+  margin : 10px 1px 10px 2px;
+}
+
+.order_item ul li .li_cell {
+  display:inline-block;
+}
+
+.list_cell_left {
+  //border : solid 2px red;
+  float: left;
+  width : 25%;
+  height : 100%;
+  text-align: center;
+  padding: 20px 0px 10px 0px;
+}
+
+.list_cell_right {
+  //border : solid 2px green;
+  float: right;
+  width: 73%;
+}
+
+.footer {
+  clear : both;
+  font-size : 2em;
+  align-content: right;
 }
 
 .order_item ul li:hover {
@@ -42,4 +69,27 @@
 .order_item .title {
   font-size: 1.2em;
   text-align:center;
+}
+
+#ol_start_point{
+  font-size : 1.5em;
+  color : red;
+}
+
+#ol_destination{
+  font-size : 1.5em;
+  color : red;
+}
+
+#ol_start_time{
+  font-size : 1.5em;
+  color : red;
+}
+
+#order_type_choose{
+  font-size:3em;
+}
+
+.tel_people{
+  float : right;
 }

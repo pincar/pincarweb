@@ -33,6 +33,11 @@ function init(){
 		oderListDiv.html("");
 		refreshOrderList();
 	});
+
+	// $('#order_type_choose span').click(function(){
+	// 	//$(this).siblings().find('input').attr('checked',false);
+	// 	$(this).find('input').click();
+	// });
 }
 
 
@@ -43,6 +48,8 @@ function refreshOrderList(){
 		type : orderType,
 		pageNo : curPageNo 
 	};
+	$('#order_list #countTips').show();
+    $('#order_list #countTips').text("加载中....");
 	$.ajax({
         type: 'post',
         url: url,
@@ -55,6 +62,8 @@ function refreshOrderList(){
         	var count = data.count;
         	var more = data.more;
         	data = data.list;
+
+        	$('#order_list #countTips').text("以下信息已经按照时间排序了");
 
         	if(count == 0 && curPageNo == 0){
         		$('#order_list #countTips').show();
@@ -84,11 +93,13 @@ function refreshOrderList(){
         			orderItemTemplate.find('#ol_tel').text(orderItem.phone);
         			orderItemTemplate.find('#ol_start_point').text(orderItem.startPoint);
         			orderItemTemplate.find('#ol_destination').text(orderItem.destination);
-        			orderItemTemplate.find('#ol_start_time').text(orderItem.time);
+
+        			var time = orderItem.time.substring(5);
+        			orderItemTemplate.find('#ol_start_time').text(time);
         			
         			orderItemTemplate.find('#ol_detail').text(orderItem.detail);
 
-        			orderItemTemplate.find('#ol_call').href="tel:" + orderItem.phone;
+        			orderItemTemplate.find('#ol_call').attr("href","tel:" + orderItem.phone);
         			
 
         			if(orderType == 1){
