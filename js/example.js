@@ -534,7 +534,7 @@ function initial(page){
 function urlArgs() {
 
     var args = {};                             // Start with an empty object
-    var query = window.location.hash;          //
+    var query = decodeURI(window.location.hash);          //
     var pairs = query.split("#");              // Split at ampersands
     for (var i = 0; i < pairs.length; i++) {    // For each fragment
         var pos = pairs[i].indexOf('=');       // Look for "name=value"
